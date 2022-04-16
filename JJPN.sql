@@ -1,3 +1,4 @@
+
 create database if not exists `JJPN`;
 use  `JJPN`;
 
@@ -12,4 +13,5 @@ create table `location`(
 `contact` varchar(8) not null,
 `address` varchar(255),
 `district` varchar(50)
+
 ) charset=utf8;
