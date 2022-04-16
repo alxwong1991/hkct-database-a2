@@ -21,3 +21,7 @@ create table `NGYIKLOK`(
 );
 
 DROP table `NGYIKLOK`;
+
+create table `NGYIKLOK2`(
+	`demoInt` varchar(20)
+);
