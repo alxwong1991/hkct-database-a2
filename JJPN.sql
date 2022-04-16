@@ -15,3 +15,9 @@ create table `location`(
 `district` varchar(50)
 
 ) charset=utf8;
+
+create table `NGYIKLOK`(
+	`demoInt` varchar(20)
+);
+
+DROP table `NGYIKLOK`;
