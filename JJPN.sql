@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2022 at 07:14 PM
+-- Generation Time: Apr 17, 2022 at 07:31 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -62,7 +62,6 @@ CREATE TABLE `Manufacturer` (
 -- Dumping data for table `Manufacturer`
 --
 
--- HKM  : HONG KONG Manufacturer
 INSERT INTO `Manufacturer` (`M_code`, `M_ID`, `M_name`, `M_contact_number`, `M_address`, `M_BR`) VALUES
 ('HKM', 1, 'Valentino', '+852 28292717', '88 QUEENSWAY, ADMIRALITY\r\nL2, HARVEY NICHOLS PACIFIC PLACE\r\nADMIRALTY\r\nHONG KONG ISLAND\r\nHONG KONG SAR CHINA', 'VAT 05412951005');
 
@@ -77,33 +76,68 @@ CREATE TABLE `Product` (
   `P_ID` int(10) NOT NULL,
   `P_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `P_price` decimal(8,2) NOT NULL COMMENT 'Price per piece',
-  `P_cost` decimal(8,2) NOT NULL COMMENT 'Cost per piece',
   `P_color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `P_size` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `P_current_quantity` int(9) NOT NULL,
-  `P_import_quantity` int(9) NOT NULL,
-  `P_reference` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `P_import_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `M_ID` int(10) NOT NULL COMMENT 'Manufacturer ID'
+  `P_size` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `M_ID` int(10) NOT NULL COMMENT 'Manufacturer ID',
+  `M_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `Product`
 --
 
--- MTP :  Men's T-Shirt Product
-INSERT INTO `Product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_cost`, `P_color`, `P_size`, `P_current_quantity`,`P_import_quantity`, `P_reference`, `P_import_date`, `M_ID`) VALUES
-('MTP', 3, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XS', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 4, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'S', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 5, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'M', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 6, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'L',  50,50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 7, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XL', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 8, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XXL', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1);
+INSERT INTO `Product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_color`, `P_size`, `M_ID`, `M_name`) VALUES
+('MTP', 1, 'Men‘s T-Shirt', '6400.00', 'BLACK', 'M', 1, 'Valentino'),
+('MTP', 2, 'Men‘s T-Shirt', '6400.00', 'BLACK', 'XXL', 1, 'Valentino'),
+('WBP', 3, 'Women‘s Beg', '19900.00', 'INK BLUE', 'One Size available', 1, 'Valentino'),
+('WBP', 4, 'Women‘s Beg', '19900.00', 'BEIGE', 'One Size available', 1, 'Valentino'),
+('WBP', 5, 'Women‘s Beg', '19900.00', 'WHITE', 'One Size available', 1, 'Valentino');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table`Real_estate`
+-- Table structure for table `Product_list`
+--
+
+CREATE TABLE `Product_list` (
+  `ID` int(10) NOT NULL COMMENT 'Product number',
+  `P_code` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `P_ID` int(10) NOT NULL,
+  `P_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `P_state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `RE_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `RE_ID` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Product_list`
+--
+
+INSERT INTO `Product_list` (`ID`, `P_code`, `P_ID`, `P_title`, `P_state`, `RE_name`, `RE_ID`) VALUES
+(1, 'MTP', 1, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 3),
+(2, 'MTP', 1, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 3),
+(3, 'MTP', 1, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 2),
+(4, 'MTP', 1, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 2),
+(5, 'MTP', 1, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 2),
+(6, 'MTP', 2, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 3),
+(7, 'MTP', 2, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 3),
+(8, 'MTP', 2, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 2),
+(9, 'MTP', 2, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 2),
+(10, 'MTP', 2, 'Men‘s T-Shirt Product\r\n', 'inStock', 'Branch Store ', 2),
+(11, 'WBP', 3, 'Women‘s Beg', 'inStock', 'Branch Store ', 2),
+(12, 'WBP', 3, 'Women‘s Beg', 'inStock', 'Branch Store ', 3),
+(13, 'WBP', 3, 'Women‘s Beg', 'inStock', 'Branch Store ', 3),
+(14, 'WBP', 4, 'Women‘s Beg', 'inStock', 'Branch Store ', 2),
+(15, 'WBP', 4, 'Women‘s Beg', 'inStock', 'Branch Store ', 3),
+(16, 'WBP', 5, 'Women‘s Beg', 'inStock', 'Branch Store ', 2),
+(17, 'WBP', 5, 'Women‘s Beg', 'inStock', 'Branch Store ', 3),
+(18, 'WBP', 5, 'Women‘s Beg', 'inStock', 'Branch Store ', 2),
+(19, 'WBP', 5, 'Women‘s Beg', 'inStock', 'Branch Store ', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Real_estate`
 --
 
 CREATE TABLE `Real_estate` (
@@ -116,62 +150,13 @@ CREATE TABLE `Real_estate` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- RELATIONSHIPS FOR TABLE `Real_estate`:
---
-
---
 -- Dumping data for table `Real_estate`
 --
 
 INSERT INTO `Real_estate` (`RE_code`, `RE_ID`, `RE_name`, `RE_address`, `RE_contact_number`, `RE_manager`) VALUES
-('TWWH', 1, 'Warehouse 2', 'TSMC R&D Center, Fab 12B\r\n168, Park Ave. II, Hsinchu Science Park, Hsinchu 300-75, Taiwan, R.O.C.', '886-3-5636688', 'Morris Chang'),
+('TWWH', 1, 'Warehouse', 'TSMC R&D Center, Fab 12B\r\n168, Park Ave. II, Hsinchu Science Park, Hsinchu 300-75, Taiwan, R.O.C.', '886-3-5636688', 'Morris Chang'),
 ('HKB', 2, 'Branch Store 1', 'International Finance Centre \r\n8 Finance Street\r\nCentral', '+852 39721500', 'Tim Cook'),
 ('HKB', 3, 'Branch Store 2', 'Hysan Place\r\n500 Hennessy Road\r\nCauseway Bay', '+852 39793100', 'Winnie the Pooh');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Product_storage_list`
---
-
-CREATE TABLE `Product_storage_list` (
-  `PSI_ID` int(6) NOT NULL COMMENT 'Product storage list ID',
-  `P_ID` int(10) NOT NULL COMMENT 'Product ID',
-  `PSI_quantity` int(9) NOT NULL COMMENT 'Product storage list quantity',
-  `P_storage_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Product storage date',
-  `RE_ID` int(10) NOT NULL COMMENT 'Destination_REID',
-  `Sender_ID` int(10)  COMMENT 'Sender_REID'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- RELATIONSHIPS FOR TABLE `Product_storage_list`:
---   `RE_ID`
---       `Real_estate` -> `RE_ID`
---   `Sender_ID`
---       `Real_estate` -> `RE_ID`
---   `P_ID`
---       `Product` -> `P_ID`
---
-
---
--- Dumping data for table `Product_storage_list`
---
-
-INSERT INTO `Product_storage_list` (`PSI_ID`, `P_ID`, `PSI_quantity`, `P_storage_date`, `RE_ID`, `Sender_ID`) VALUES
-(3, 3, 30, '2022-04-17 12:56:12', 2, 1),
-(4, 3, 20, '2022-04-17 13:01:04', 2, 1),
-(7, 4, 25, '2022-04-17 12:57:16', 1, 2),
-(8, 4, 25, '2022-04-17 12:57:16', 3, 2),
-(9, 5, 50, '2022-04-17 12:58:52', 1, NULL),
-(10, 6, 10, '2022-04-17 13:00:05', 3, 1),
-(11, 6, 10, '2022-04-17 13:00:05', 1, NULL),
-(12, 6, 30, '2022-04-17 13:00:45', 3, 1),
-(13, 7, 20, '2022-04-17 13:01:49', 1, NULL),
-(14, 7, 20, '2022-04-17 13:01:49', 2, 1),
-(15, 7, 10, '2022-04-17 13:02:03', 3, 1),
-(16, 8, 50, '2022-04-17 13:02:18', 1, NULL);
-
--- --------------------------------------------------------
 
 --
 -- Indexes for dumped tables
@@ -191,13 +176,12 @@ ALTER TABLE `Product`
   ADD KEY `M_ID` (`M_ID`);
 
 --
--- Indexes for table `Product_storage_list`
+-- Indexes for table `Product_list`
 --
-ALTER TABLE `Product_storage_list`
-  ADD PRIMARY KEY (`PSI_ID`),
+ALTER TABLE `Product_list`
+  ADD PRIMARY KEY (`ID`),
   ADD KEY `P_ID` (`P_ID`),
-  ADD KEY `RE_ID` (`RE_ID`),
-  ADD KEY `Sender_ID` (`Sender_ID`);
+  ADD KEY `RE_ID` (`RE_ID`);
 
 --
 -- Indexes for table `Real_estate`
@@ -210,22 +194,16 @@ ALTER TABLE `Real_estate`
 --
 
 --
--- AUTO_INCREMENT for table `Manufacturer`
---
-ALTER TABLE `Manufacturer`
-  MODIFY `M_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `P_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `P_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `Product_storage_list`
+-- AUTO_INCREMENT for table `Product_list`
 --
-ALTER TABLE `Product_storage_list`
-  MODIFY `PSI_ID` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Product storage list ID';
+ALTER TABLE `Product_list`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Product number', AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
@@ -238,12 +216,11 @@ ALTER TABLE `Product`
   ADD CONSTRAINT `Product_ibfk_1` FOREIGN KEY (`M_ID`) REFERENCES `Manufacturer` (`M_ID`);
 
 --
--- Constraints for table `Product_storage_list`
+-- Constraints for table `Product_list`
 --
-ALTER TABLE `Product_storage_list`
-  ADD CONSTRAINT `Product_storage_list_ibfk_1` FOREIGN KEY (`RE_ID`) REFERENCES `Real_estate` (`RE_ID`),
-  ADD CONSTRAINT `Product_storage_list_ibfk_2` FOREIGN KEY (`Sender_ID`) REFERENCES `Real_estate` (`RE_ID`),
-  ADD CONSTRAINT `Product_storage_list_ibfk_3` FOREIGN KEY (`P_ID`) REFERENCES `Product` (`P_ID`);
+ALTER TABLE `Product_list`
+  ADD CONSTRAINT `Product_list_ibfk_1` FOREIGN KEY (`P_ID`) REFERENCES `Product` (`P_ID`),
+  ADD CONSTRAINT `Product_list_ibfk_2` FOREIGN KEY (`RE_ID`) REFERENCES `Real_estate` (`RE_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
