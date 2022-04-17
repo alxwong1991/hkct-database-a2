@@ -82,8 +82,8 @@ CREATE TABLE `Product` (
   `P_size` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `P_current_quantity` int(9) NOT NULL,
   `P_import_quantity` int(9) NOT NULL,
-  `P_import_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `P_reference` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `P_import_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `M_ID` int(10) NOT NULL COMMENT 'Manufacturer ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -92,13 +92,13 @@ CREATE TABLE `Product` (
 --
 
 -- MTP :  Men's T-Shirt Product
-INSERT INTO `Product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_cost`, `P_color`, `P_size`, `P_current_quantity`,`P_import_quantity`, `P_import_date`, `P_reference`,`M_ID`) VALUES
-('MTP', 3, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XS', 50, 50,  '2022-04-16 22:12:23', 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
-('MTP', 4, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'S', 50, 50,  '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
-('MTP', 5, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'M', 50, 50,  '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
-('MTP', 6, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'L', 50, 50, '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
-('MTP', 7, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XL', 50, 50, '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
-('MTP', 8, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XXL', 50, 50, '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1);
+INSERT INTO `Product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_cost`, `P_color`, `P_size`, `P_current_quantity`,`P_import_quantity`, `P_reference`, `P_import_date`, `M_ID`) VALUES
+('MTP', 3, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XS', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
+('MTP', 4, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'S', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
+('MTP', 5, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'M', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
+('MTP', 6, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'L',  50,50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
+('MTP', 7, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XL', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
+('MTP', 8, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XXL', 50, 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1);
 
 -- --------------------------------------------------------
 
@@ -124,8 +124,8 @@ CREATE TABLE `Real_estate` (
 --
 
 INSERT INTO `Real_estate` (`RE_code`, `RE_ID`, `RE_name`, `RE_address`, `RE_contact_number`, `RE_manager`) VALUES
-('HKB', 1, 'Branch Store 1', 'International Finance Centre \r\n8 Finance Street\r\nCentral', '+852 39721500', 'Tim Cook'),
-('TWWH', 2, 'Warehouse 2', 'TSMC R&D Center, Fab 12B\r\n168, Park Ave. II, Hsinchu Science Park, Hsinchu 300-75, Taiwan, R.O.C.', '886-3-5636688', 'Morris Chang'),
+('TWWH', 1, 'Warehouse 2', 'TSMC R&D Center, Fab 12B\r\n168, Park Ave. II, Hsinchu Science Park, Hsinchu 300-75, Taiwan, R.O.C.', '886-3-5636688', 'Morris Chang'),
+('HKB', 2, 'Branch Store 1', 'International Finance Centre \r\n8 Finance Street\r\nCentral', '+852 39721500', 'Tim Cook'),
 ('HKB', 3, 'Branch Store 2', 'Hysan Place\r\n500 Hennessy Road\r\nCauseway Bay', '+852 39793100', 'Winnie the Pooh');
 
 -- --------------------------------------------------------
@@ -139,14 +139,13 @@ CREATE TABLE `Product_storage_list` (
   `P_ID` int(10) NOT NULL COMMENT 'Product ID',
   `PSI_quantity` int(9) NOT NULL COMMENT 'Product storage list quantity',
   `P_storage_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Product storage date',
-  `Destination_ID` int(10) COMMENT 'Destination_REID',
-  `Sender_ID` int(10) COMMENT 'Sender_REID',
-  `State` varchar(255) COLLATE utf8mb4_unicode_ci
+  `RE_ID` int(10) NOT NULL COMMENT 'Destination_REID',
+  `Sender_ID` int(10)  COMMENT 'Sender_REID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- RELATIONSHIPS FOR TABLE `Product_storage_list`:
---   `Destination_ID`
+--   `RE_ID`
 --       `Real_estate` -> `RE_ID`
 --   `Sender_ID`
 --       `Real_estate` -> `RE_ID`
@@ -158,10 +157,19 @@ CREATE TABLE `Product_storage_list` (
 -- Dumping data for table `Product_storage_list`
 --
 
-INSERT INTO `Product_storage_list` (`PSI_ID`, `P_ID`, `PSI_quantity`, `P_storage_date`, `Destination_ID`, `Sender_ID`, `State`) VALUES
-(1, 3, 10, '2022-04-17 04:15:45', 2, NULL, 'Stock'),
-(2, 3, 20, '2022-04-17 04:15:45', 1, 2, 'Stock'),
-(3, 3, 20, '2022-04-17 04:15:45', 3, 2, 'Shipment');
+INSERT INTO `Product_storage_list` (`PSI_ID`, `P_ID`, `PSI_quantity`, `P_storage_date`, `RE_ID`, `Sender_ID`) VALUES
+(3, 3, 30, '2022-04-17 12:56:12', 2, 1),
+(4, 3, 20, '2022-04-17 13:01:04', 2, 1),
+(7, 4, 25, '2022-04-17 12:57:16', 1, 2),
+(8, 4, 25, '2022-04-17 12:57:16', 3, 2),
+(9, 5, 50, '2022-04-17 12:58:52', 1, NULL),
+(10, 6, 10, '2022-04-17 13:00:05', 3, 1),
+(11, 6, 10, '2022-04-17 13:00:05', 1, NULL),
+(12, 6, 30, '2022-04-17 13:00:45', 3, 1),
+(13, 7, 20, '2022-04-17 13:01:49', 1, NULL),
+(14, 7, 20, '2022-04-17 13:01:49', 2, 1),
+(15, 7, 10, '2022-04-17 13:02:03', 3, 1),
+(16, 8, 50, '2022-04-17 13:02:18', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -188,7 +196,7 @@ ALTER TABLE `Product`
 ALTER TABLE `Product_storage_list`
   ADD PRIMARY KEY (`PSI_ID`),
   ADD KEY `P_ID` (`P_ID`),
-  ADD KEY `Destination_ID` (`Destination_ID`),
+  ADD KEY `RE_ID` (`RE_ID`),
   ADD KEY `Sender_ID` (`Sender_ID`);
 
 --
@@ -217,7 +225,7 @@ ALTER TABLE `Product`
 -- AUTO_INCREMENT for table `Product_storage_list`
 --
 ALTER TABLE `Product_storage_list`
-  MODIFY `PSI_ID` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Product storage list ID', AUTO_INCREMENT=6;
+  MODIFY `PSI_ID` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Product storage list ID';
 
 --
 -- Constraints for dumped tables
@@ -233,7 +241,7 @@ ALTER TABLE `Product`
 -- Constraints for table `Product_storage_list`
 --
 ALTER TABLE `Product_storage_list`
-  ADD CONSTRAINT `Product_storage_list_ibfk_1` FOREIGN KEY (`Destination_ID`) REFERENCES `Real_estate` (`RE_ID`),
+  ADD CONSTRAINT `Product_storage_list_ibfk_1` FOREIGN KEY (`RE_ID`) REFERENCES `Real_estate` (`RE_ID`),
   ADD CONSTRAINT `Product_storage_list_ibfk_2` FOREIGN KEY (`Sender_ID`) REFERENCES `Real_estate` (`RE_ID`),
   ADD CONSTRAINT `Product_storage_list_ibfk_3` FOREIGN KEY (`P_ID`) REFERENCES `Product` (`P_ID`);
 COMMIT;
