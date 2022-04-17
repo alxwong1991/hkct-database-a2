@@ -80,9 +80,10 @@ CREATE TABLE `Product` (
   `P_cost` decimal(8,2) NOT NULL COMMENT 'Cost per piece',
   `P_color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `P_size` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `P_quantity` int(9) NOT NULL,
-  `P_reference` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `P_current_quantity` int(9) NOT NULL,
+  `P_import_quantity` int(9) NOT NULL,
   `P_import_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `P_reference` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `M_ID` int(10) NOT NULL COMMENT 'Manufacturer ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -91,13 +92,13 @@ CREATE TABLE `Product` (
 --
 
 -- MTP :  Men's T-Shirt Product
-INSERT INTO `Product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_cost`, `P_color`, `P_size`, `P_quantity`, `P_reference`, `P_import_date`, `M_ID`) VALUES
-('MTP', 3, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XS', 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 4, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'S', 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 5, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'M', 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 6, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'L', 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 7, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XL', 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1),
-('MTP', 8, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XXL', 50, 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', '2022-04-16 22:12:23', 1);
+INSERT INTO `Product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_cost`, `P_color`, `P_size`, `P_current_quantity`,`P_import_quantity`, `P_import_date`, `P_reference`,`M_ID`) VALUES
+('MTP', 3, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XS', 50, 50,  '2022-04-16 22:12:23', 'https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
+('MTP', 4, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'S', 50, 50,  '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
+('MTP', 5, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'M', 50, 50,  '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
+('MTP', 6, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'L', 50, 50, '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
+('MTP', 7, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XL', 50, 50, '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1),
+('MTP', 8, 'Men‘s T-Shirt Product - COTTON CREWNECK T-SHIRT WITH VALENTINO ARCHIVE 1971 PRINT', '6400.00', '200.00', 'BLACK', 'XXL', 50, 50, '2022-04-16 22:12:23','https://www.valentino.com/en-hk/t-shirts_cod38063312420191026.html#dept=ROW_Tshirts-Sweatshirts_M', 1);
 
 -- --------------------------------------------------------
 
@@ -138,8 +139,9 @@ CREATE TABLE `Product_storage_list` (
   `P_ID` int(10) NOT NULL COMMENT 'Product ID',
   `PSI_quantity` int(9) NOT NULL COMMENT 'Product storage list quantity',
   `P_storage_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Product storage date',
-  `Destination_ID` int(10) NOT NULL COMMENT 'Destination_REID',
-  `Sender_ID` int(10) NOT NULL COMMENT 'Sender_REID'
+  `Destination_ID` int(10) COMMENT 'Destination_REID',
+  `Sender_ID` int(10) COMMENT 'Sender_REID',
+  `State` varchar(255) COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -156,9 +158,10 @@ CREATE TABLE `Product_storage_list` (
 -- Dumping data for table `Product_storage_list`
 --
 
-INSERT INTO `Product_storage_list` (`PSI_ID`, `P_ID`, `PSI_quantity`, `P_storage_date`, `Destination_ID`, `Sender_ID`) VALUES
-(2, 3, 20, '2022-04-17 04:15:45', 1, 2),
-(3, 3, 20, '2022-04-17 04:15:45', 3, 2);
+INSERT INTO `Product_storage_list` (`PSI_ID`, `P_ID`, `PSI_quantity`, `P_storage_date`, `Destination_ID`, `Sender_ID`, `State`) VALUES
+(1, 3, 10, '2022-04-17 04:15:45', 2, NULL, 'Stock'),
+(2, 3, 20, '2022-04-17 04:15:45', 1, 2, 'Stock'),
+(3, 3, 20, '2022-04-17 04:15:45', 3, 2, 'Shipment');
 
 -- --------------------------------------------------------
 
