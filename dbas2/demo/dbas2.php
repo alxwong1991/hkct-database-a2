@@ -79,7 +79,6 @@
                                                     <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
-                                                    <th>quantity</th>
                                                     <th>Price per piece</th>
                                                 </tr>
                                             </thead>
@@ -107,10 +106,7 @@
                                                         <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo $row['P_current_quantity']; ?></td>
                                                         <td><?php echo "$" . $row['P_price']; ?></td>
-                                                        <?php
-                                                        ?>
                                                     </tr>
                                                 <?php }
                                                 ?>
@@ -131,7 +127,7 @@
                                 require "./db_connect.php";
 
                                 // random num
-                                $rand = rand(3, 8);
+                                $rand = rand(1, 5);
 
                                 // SQL SELECT RECORD  
                                 $sql = "select * from Product where P_id = $rand";
@@ -155,7 +151,6 @@
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Branch & Warehouse</th>
-                                                    <th>Quantity</th>
                                                     <th>Price per piece</th>
                                                     <th>Address</th>
                                                 </tr>
@@ -172,7 +167,7 @@
                                                 $sl = 0;
 
                                                 // SQL SELECT RECORD  
-                                                $sql = "SELECT * FROM `Product_storage_list`, `Real_estate`, `Product` WHERE ( `Product_storage_list`.`RE_ID` = `Real_estate`.`RE_ID`) AND (`Product`.`P_id` = `Product_storage_list`.`P_ID`) AND (`Product`.`P_ID` = $rand);";
+                                                $sql = "SELECT * FROM `Product_list`, `Real_estate`, `Product` WHERE ( `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`) AND (`Product`.`P_id` = `Product_list`.`P_ID`) AND (`Product`.`P_ID` = $rand);";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -180,11 +175,10 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <td><?php echo $row['P_code'] . $row['P_ID']; ?></td>
+                                                        <td><?php echo $row['ID'] . $row['P_code'] . $row['P_ID']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
                                                         <td><?php echo $row['RE_name']; ?></td>
-                                                        <td><?php echo $row['PSI_quantity']; ?></td>
                                                         <td><?php echo $row['P_price']; ?></td>
                                                         <td><?php echo $row['RE_address']; ?></td>
                                                         <?php
@@ -199,7 +193,7 @@
                             </div>
 
                 <?PHP }
-                }else{
+                } else {
                     echo 123;
                 }
                 ?>
