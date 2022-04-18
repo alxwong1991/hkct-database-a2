@@ -11,15 +11,17 @@
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-
     <link href="css/header.css" rel="stylesheet">
     <link href="css/footer.css" rel="stylesheet">
+
+    <!-- temp-content -->
     <link href="css/temp-content.css" rel="stylesheet">
 
 </head>
 
 <body>
+
+    <!-- background-color: rgba(37, 105, 85, 0.4); -->
 
     <!-- ::::::::::::::::::::::::::::::: header ::::::::::::::::::::::::::::::: -->
     <div>
@@ -44,14 +46,20 @@
 
                 <?php
 
+
                 echo "<form action=\"dbas2.php?\" method=\"GET\">";
 
+                // ALL
                 echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='all'>All Products</button>";
 
-                echo "<form>";
+                // Warehouse           
+                echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='WH'>Warehouse</button>";
 
+                // BS1
+                echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='BS1'>Branch Store 1</button>";
 
-                echo "<form action=\"dbas2.php\" method=\"GET\">";
+                // BS2
+                echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='BS2'>Branch Store 2</button>";
 
                 echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='scan' >Scan</button>";
 
@@ -68,6 +76,8 @@
                         case "all": ?>
                             <!-- ///////////////////////////////////////////////////////////////////////////////////   ALL  -->
                             <div>
+                                <h2 class='w-100 mb-2 mt-2 text-center text-danger'>ALL Products</h2>
+
                                 <!-- data list -->
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -75,11 +85,15 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Product code</th>
                                                     <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
+                                                    <th>Quantity</th>
+                                                    <th>State</th>
+                                                    <!-- <th>Location ID</th>
+                                                    <th>Location Title</th>
+                                                    <th>Address</th> -->
                                                 </tr>
                                             </thead>
 
@@ -94,7 +108,24 @@
                                                 $sl = 0;
 
                                                 // SQL SELECT RECORD  
-                                                $sql = "select * from Product";
+                                                $sql = "SELECT
+                                                `Product`.`P_title`,
+                                                `Product`.`P_color`,
+                                                `Product`.`P_size`,
+                                                `Product`.`P_price`,
+                                                COUNT(*) AS countQ,
+                                                `Product_list`.`P_state`,
+                                                `Real_estate`.`RE_ID`,
+                                                `Real_estate`.`RE_name`,
+                                                `Real_estate`.`RE_address`
+                                            FROM
+                                                `Product`,
+                                                `Product_list`,
+                                                `Real_estate`
+                                            WHERE
+                                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
+                                            GROUP BY
+                                                `Product`.`P_code`;";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -102,11 +133,12 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <td><?php echo $row['P_code'] . $row['P_ID']; ?></td>
                                                         <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
                                                         <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['countQ']; ?></td>
+                                                        <td><?php echo $row['P_state']; ?></td>
                                                     </tr>
                                                 <?php }
                                                 ?>
@@ -116,30 +148,14 @@
                                 </div>
                             </div>
                             <!--  -->
+
                         <?php break;
-                        case "scan": ?>
-                            <!-- ///////////////////////////////////////////////////////////////////////////////////   SCAN  -->
+
+                        case "WH": ?>
+                            <!-- ///////////////////////////////////////////////////////////////////////////////////   Warehouse  -->
                             <div>
 
-                                <!-- SLECT the product title -->
-                                <?php
-                                // Connect database
-                                require "./db_connect.php";
-
-                                // random num
-                                $rand = rand(1, 5);
-
-                                // SQL SELECT RECORD  
-                                $sql = "select * from Product where P_id = $rand";
-                                $sql_result = $conn->query($sql);
-                                while ($row = mysqli_fetch_array($sql_result)) {
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_title'] . "</h2>";
-                                }
-
-                                print_r("P_ID" . $rand);
-                                ?>
-
-
+                                <h2 class='w-100 mb-2 mt-2 text-center text-danger'>Warehouse</h2>
                                 <!-- data list -->
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -147,12 +163,15 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Product code</th>
+                                                    <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
-                                                    <th>Branch & Warehouse</th>
                                                     <th>Price per piece</th>
-                                                    <th>Address</th>
+                                                    <th>Quantity</th>
+                                                    <th>State</th>
+                                                    <!-- <th>Location ID</th>
+                            <th>Location Title</th>
+                            <th>Address</th> -->
                                                 </tr>
                                             </thead>
 
@@ -167,7 +186,24 @@
                                                 $sl = 0;
 
                                                 // SQL SELECT RECORD  
-                                                $sql = "SELECT * FROM `Product_list`, `Real_estate`, `Product` WHERE ( `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`) AND (`Product`.`P_id` = `Product_list`.`P_ID`) AND (`Product`.`P_ID` = $rand);";
+                                                $sql = "SELECT
+`Product`.`P_code`,
+    `Product`.`P_title`,
+    `Product`.`P_color`,
+    `Product`.`P_size`,
+    `Product`.`P_price`,
+    COUNT(*) AS countQ,
+    `Product_list`.`P_state`,
+    `Real_estate`.`RE_ID`,
+    `Real_estate`.`RE_name`,
+    `Real_estate`.`RE_address`
+FROM
+    `Product`,
+    `Product_list`,
+    `Real_estate`
+WHERE
+    `Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID` AND `Real_estate`.`RE_ID`=1
+    GROUP BY `Product`.`P_code`;";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -175,11 +211,292 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <td><?php echo $row['ID'] . $row['P_code'] . $row['P_ID']; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['countQ']; ?></td>
+                                                        <td><?php echo $row['P_state']; ?></td>
+                                                    </tr>
+                                                <?php }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+
+                        <?php break;
+
+                        case "BS1": ?>
+                            <!-- ///////////////////////////////////////////////////////////////////////////////////   Bracnch Store 1  -->
+                            <div>
+
+                                <h2 class='w-100 mb-2 mt-2 text-center text-danger'>Bracnch Store 1</h2>
+                                <!-- data list -->
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Title</th>
+                                                    <th>Color </th>
+                                                    <th>Size</th>
+                                                    <th>Price per piece</th>
+                                                    <th>Quantity</th>
+                                                    <th>State</th>
+                                                    <!-- <th>Location ID</th>
+    <th>Location Title</th>
+    <th>Address</th> -->
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                <?php
+
+                                                // Connect database
+                                                require "./db_connect.php";
+
+
+                                                $sl = 0;
+
+                                                // SQL SELECT RECORD  
+                                                $sql = "SELECT
+`Product`.`P_code`,
+`Product`.`P_title`,
+`Product`.`P_color`,
+`Product`.`P_size`,
+`Product`.`P_price`,
+COUNT(*) AS countQ,
+`Product_list`.`P_state`,
+`Real_estate`.`RE_ID`,
+`Real_estate`.`RE_name`,
+`Real_estate`.`RE_address`
+FROM
+`Product`,
+`Product_list`,
+`Real_estate`
+WHERE
+`Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID` AND `Real_estate`.`RE_ID`=2
+GROUP BY `Product`.`P_code`;";
+                                                // Execute sql
+                                                $sql_result = $conn->query($sql);
+                                                while ($row = mysqli_fetch_array($sql_result)) {
+                                                    $sl++;
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $sl; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
+                                                        <td><?php echo $row['P_color']; ?></td>
+                                                        <td><?php echo $row['P_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['countQ']; ?></td>
+                                                        <td><?php echo $row['P_state']; ?></td>
+                                                    </tr>
+                                                <?php }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+
+                        <?php break;
+
+
+
+
+                        case "BS2": ?>
+                            <!-- ///////////////////////////////////////////////////////////////////////////////////   Bracnch Store 2  -->
+                            <div>
+
+                                <h2 class='w-100 mb-2 mt-2 text-center text-danger'>Bracnch Store 2</h2>
+                                <!-- data list -->
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Title</th>
+                                                    <th>Color </th>
+                                                    <th>Size</th>
+                                                    <th>Price per piece</th>
+                                                    <th>Quantity</th>
+                                                    <th>State</th>
+                                                    <!-- <th>Location ID</th>
+    <th>Location Title</th>
+    <th>Address</th> -->
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                <?php
+
+                                                // Connect database
+                                                require "./db_connect.php";
+
+
+                                                $sl = 0;
+
+                                                // SQL SELECT RECORD  
+                                                $sql = "SELECT
+`Product`.`P_code`,
+`Product`.`P_title`,
+`Product`.`P_color`,
+`Product`.`P_size`,
+`Product`.`P_price`,
+COUNT(*) AS countQ,
+`Product_list`.`P_state`,
+`Real_estate`.`RE_ID`,
+`Real_estate`.`RE_name`,
+`Real_estate`.`RE_address`
+FROM
+`Product`,
+`Product_list`,
+`Real_estate`
+WHERE
+`Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID` AND `Real_estate`.`RE_ID`=3
+GROUP BY `Product`.`P_code`;";
+                                                // Execute sql
+                                                $sql_result = $conn->query($sql);
+                                                while ($row = mysqli_fetch_array($sql_result)) {
+                                                    $sl++;
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $sl; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
+                                                        <td><?php echo $row['P_color']; ?></td>
+                                                        <td><?php echo $row['P_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['countQ']; ?></td>
+                                                        <td><?php echo $row['P_state']; ?></td>
+                                                    </tr>
+                                                <?php }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+
+                        <?php break;
+
+
+
+                        case "scan": ?>
+                            <!-- ///////////////////////////////////////////////////////////////////////////////////   SCAN  -->
+                            <div>
+
+                                <form action="dbas2.php" method="GET">
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Product ID</label>
+                                        <input type="text" name="pid" class="form-control">
+                                        <div class="form-text"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Sender ID </label>
+                                        <input type="text" name="s" class="form-control">
+                                        <div class="form-text">B&W ID.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">to Destination ID </label>
+                                        <input type="text" name="d" class="form-control">
+                                        <div class="form-text">B&W ID</div>
+                                    </div>
+
+                                    <button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='request'>Request product</button>
+                                </form>
+
+
+                                <?php
+                                // Connect database
+                                require "./db_connect.php";
+
+                                // random num
+                                $rand = rand(1, 19);
+
+                                $pCode = 0;
+
+                                // SQL SELECT RECORD  
+                                $sql = "select * from 
+                                `Product`,
+                                `Product_list`
+                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $rand";
+                                $sql_result = $conn->query($sql);
+                                while ($row = mysqli_fetch_array($sql_result)) {
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "Product ID#" . $row['P_ID'] . "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_color'] . " @ " . $row['P_size'] . "</h2>";
+                                    $pCode = $row['P_code'];
+                                }
+
+
+
+                                ?>
+
+
+
+                                <!-- data list -->
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Title </th>
+                                                    <th class="text-danger">Product ID</th>
+                                                    <th>Color </th>
+                                                    <th>Size</th>
+                                                    <th>Price per piece</th>
+                                                    <th>State</th>
+                                                    <th class="text-danger">B&W ID</th>
+                                                    <th>Branch & Warehouse</th>
+                                                    <th>Address</th>
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                <?php
+
+
+                                                print_r("P_ID" . $pCode);
+                                                $sl = 0;
+
+                                                // SQL SELECT RECORD  
+                                                $sql = "SELECT
+                                                *
+                                             FROM
+                                                 `Product_list`,
+                                                 `Product`,
+                                                 `Real_estate`
+                                             WHERE
+                                                 (
+                                                     `Product`.`P_code` = `Product_list`.`P_code`
+                                                 ) AND(
+                                                     `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
+                                                 )	AND `Product`.`P_code` =$pCode";
+                                                // Execute sql
+                                                $sql_result = $conn->query($sql);
+                                                while ($row = mysqli_fetch_array($sql_result)) {
+                                                    $sl++;
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $sl; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
+                                                        <th class="text-danger"><?php echo $row['P_ID']; ?></th>
+                                                        <td><?php echo $row['P_color']; ?></td>
+                                                        <td><?php echo $row['P_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['P_state']; ?></td>
+                                                        <tH class="text-danger"><?php echo $row['RE_ID']; ?></th>
                                                         <td><?php echo $row['RE_name']; ?></td>
-                                                        <td><?php echo $row['P_price']; ?></td>
                                                         <td><?php echo $row['RE_address']; ?></td>
                                                         <?php
                                                         ?>
@@ -192,18 +509,185 @@
                                 </div>
                             </div>
 
-                <?PHP }
-                } else {
-                    echo 123;
-                }
-                ?>
+                        <?PHP break;
+                        case "request": ?>
+
+
+                            <!-- ///////////////////////////////////////////////////////////////////////////////////   SCAN  -->
+                            <div>
+
+                                <form action="dbas2.php" method="GET">
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Product ID</label>
+                                        <input type="text" name="pid" class="form-control">
+                                        <div class="form-text"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Sender ID </label>
+                                        <input type="text" name="s" class="form-control">
+                                        <div class="form-text">B&W ID.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">to Destination ID </label>
+                                        <input type="text" name="d" class="form-control">
+                                        <div class="form-text">B&W ID</div>
+                                    </div>
+
+                                    <button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='request'>Request product</button>
+                                </form>
+
+
+                                <?php
+
+
+                                $pid = $_GET['pid'];
+                                $s = $_GET['s'];
+                                $d = $_GET['d'];
+
+                                require "./db_connect.php";
+
+                                if (empty($pid)) {
+                                    echo "<script>";
+                                    echo "window.location.href='dbas2.php;";
+                                    echo "</script>";
+                                } else {
+
+                                    // SQL UPDATE RECORD  
+                                    $sql = "UPDATE`Product_list` SET `Product_list`.`RE_ID` = $d 
+                                WHERE `Product_list`.`P_ID` = $pid";
+                                    $sql_result = $conn->query($sql);
+
+                                    $nameS = '';
+                                    $nameD = '';
+
+                                    // SQL SELECT RECORD  
+                                    $sql = "SELECT * FROM `Real_estate` WHERE  RE_ID = $s ";
+                                    $sql_result = $conn->query($sql);
+                                    while ($row = mysqli_fetch_array($sql_result)) {
+                                        // echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['RE_name'] . "</h2>";
+                                        // echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "to   " . "</h2>";
+                                        $nameS = $row['RE_name'];
+                                    }
+
+
+
+                                    // SQL SELECT RECORD  
+                                    $sql = "SELECT * FROM `Real_estate` WHERE  RE_ID = $d  ";
+                                    $sql_result = $conn->query($sql);
+                                    while ($row = mysqli_fetch_array($sql_result)) {
+                                        // echo "<h2 class='w-100 mb-5  mt-2 text-center text-danger'>" . $row['RE_name'] . "</h2>";
+                                        $nameD = $row['RE_name'];
+                                    }
+
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . "REQUSEST SUCCEEDED".  "</h2>";
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" .$s  . "#" . $nameS . " ---> ".$d. "#" . $nameD. "</h2>";
+
+
+                                   
+
+                                    $pCode = 0;
+
+                                    // SQL SELECT RECORD  
+                                    $sql = "select * from 
+                                `Product`,
+                                `Product_list`
+                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $pid;";
+                                    $sql_result = $conn->query($sql);
+                                    while ($row = mysqli_fetch_array($sql_result)) {
+                                        echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "Product ID#" . $row['P_ID'] . "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
+                                        echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_color'] . " @ " . $row['P_size'] . "</h2>";
+
+                                        $pCode = $row['P_code'];
+                                    }
+
+
+
+
+                                ?>
+
+
+
+                                    <!-- data list -->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Title </th>
+                                                        <th class="text-danger">Product ID</th>
+                                                        <th>Color </th>
+                                                        <th>Size</th>
+                                                        <th>Price per piece</th>
+                                                        <th>State</th>
+                                                        <th class="text-danger">B&W ID</th>
+                                                        <th>Branch & Warehouse</th>
+                                                        <th>Address</th>
+                                                    </tr>
+                                                </thead>
+
+
+                                                <tbody>
+                                                    <?php
+
+
+                                                    print_r("P_ID" . $pCode);
+                                                    $sl = 0;
+
+                                                    // SQL SELECT RECORD  
+                                                    $sql = "SELECT
+                                                *
+                                             FROM
+                                                 `Product_list`,
+                                                 `Product`,
+                                                 `Real_estate`
+                                             WHERE
+                                                 (
+                                                     `Product`.`P_code` = `Product_list`.`P_code`
+                                                 ) AND(
+                                                     `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
+                                                 )	AND `Product`.`P_code` =$pCode";
+                                                    // Execute sql
+                                                    $sql_result = $conn->query($sql);
+                                                    while ($row = mysqli_fetch_array($sql_result)) {
+                                                        $sl++;
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $sl; ?></td>
+                                                            <td><?php echo $row['P_title']; ?></td>
+                                                            <th class="text-danger"><?php echo $row['P_ID']; ?></th>
+                                                            <td><?php echo $row['P_color']; ?></td>
+                                                            <td><?php echo $row['P_size']; ?></td>
+                                                            <td><?php echo "$" . $row['P_price']; ?></td>
+                                                            <td><?php echo $row['P_state']; ?></td>
+                                                            <tH class="text-danger"><?php echo $row['RE_ID']; ?></th>
+                                                            <td><?php echo $row['RE_name']; ?></td>
+                                                            <td><?php echo $row['RE_address']; ?></td>
+                                                            <?php
+                                                            ?>
+                                                        </tr>
+                                                    <?php }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                            </div>
+
+
+            <?php  }
+                        }
+                    } else {
+                        echo 123;
+                    }
+            ?>
 
 
 
 
 
 
-                <!--  -->
+            <!--  -->
             </div>
 
 
