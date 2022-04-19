@@ -15,18 +15,6 @@
               <a class="nav-link" href="./dbas2.php">dbas2</a>
               </li>
 
-              <li class="nav-item">
-              <a class="nav-link" href="./products.php">Products</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="./login.php">Login</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="./reg.php">Registration</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./products_admin.php">Setting</a>
-                </li>
           </ul>          
           </div>
         </div>

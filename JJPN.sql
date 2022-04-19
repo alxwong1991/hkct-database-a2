@@ -72,6 +72,7 @@ INSERT INTO `Manufacturer` (`M_ID`, `M_name`, `M_contact_number`, `M_address`, `
 
 CREATE TABLE `Product` (
   `P_code` int(10) NOT NULL,
+  `P_key` int(10) DEFAULT NULL,
   `P_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `P_price` decimal(8,2) NOT NULL COMMENT 'Price per piece',
   `P_color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -84,12 +85,12 @@ CREATE TABLE `Product` (
 -- Dumping data for table `Product`
 --
 
-INSERT INTO `Product` (`P_code`, `P_title`, `P_price`, `P_color`, `P_size`, `M_ID`, `M_name`) VALUES
-(1, 'Tommy embroidered logo T-shirt', '6400.00', 'BLACK', 'M', 1, 'Valentino'),
-(2, 'Tommy embroidered logo T-shirt', '6400.00', 'BLACK', 'XXL', 1, 'Valentino'),
-(3, 'VSLING plaque mini bag', '19900.00', 'INK BLUE', 'One Size available', 1, 'Valentino'),
-(4, 'VSLING plaque mini bag', '19900.00', 'BEIGE', 'One Size available', 1, 'Valentino'),
-(5, 'VSLING plaque mini bag', '19900.00', 'WHITE', 'One Size available', 1, 'Valentino');
+INSERT INTO `Product` (`P_code`, `P_key`, `P_title`, `P_price`, `P_color`, `P_size`, `M_ID`, `M_name`) VALUES
+(1, 1, 'Tommy embroidered logo T-shirt', '6400.00', 'BLACK', 'M', 1, 'Valentino'),
+(2, 1, 'Tommy embroidered logo T-shirt', '6400.00', 'BLACK', 'XXL', 1, 'Valentino'),
+(3, 2, 'VSLING plaque mini bag', '19900.00', 'INK BLUE', 'One Size available', 1, 'Valentino'),
+(4, 2, 'VSLING plaque mini bag', '19900.00', 'BEIGE', 'One Size available', 1, 'Valentino'),
+(5, 2, 'VSLING plaque mini bag', '19900.00', 'WHITE', 'One Size available', 1, 'Valentino');
 
 -- --------------------------------------------------------
 
@@ -110,19 +111,19 @@ CREATE TABLE `Product_list` (
 --
 
 INSERT INTO `Product_list` (`P_ID`, `P_code`, `P_title`, `P_state`, `RE_ID`) VALUES
-(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 1),
+(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
 (2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
 (3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3),
 (4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
 (5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1),
+(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3),
 (7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3),
 (8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2),
 (9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1),
 (10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(11, 3, 'VSLING plaque mini bag', 'inStock', 1),
+(11, 3, 'VSLING plaque mini bag', 'inStock', 2),
 (12, 3, 'VSLING plaque mini bag', 'inStock', 3),
-(13, 4, 'VSLING plaque mini bag', 'inStock', 1),
+(13, 4, 'VSLING plaque mini bag', 'inStock', 2),
 (14, 4, 'VSLING plaque mini bag', 'inStock', 1),
 (15, 4, 'VSLING plaque mini bag', 'inStock', 1),
 (16, 4, 'VSLING plaque mini bag', 'inStock', 2),
@@ -167,7 +168,8 @@ ALTER TABLE `Manufacturer`
 -- Indexes for table `Product`
 --
 ALTER TABLE `Product`
-  ADD PRIMARY KEY (`P_code`);
+  ADD PRIMARY KEY (`P_code`),
+  ADD KEY `Product_ibfk_1` (`M_ID`);
 
 --
 -- Indexes for table `Product_list`
