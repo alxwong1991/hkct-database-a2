@@ -122,7 +122,7 @@
 
                 <h1 class='w-100 mb-2 mt-2 text-center text-danger'>Daily Check</h1>
 
-                <!-- <form action="dbas2.php?" method="GET">
+                <!-- <form action="index.php?" method="GET">
                             <button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-success nav-color' type='submit' name='action' value='iwh'>Inventory Warehouse</button>
                             </form> -->
 
@@ -754,7 +754,7 @@
                         case "request": ?>
                             <div>
 
-                                <form action="dbas2.php" method="GET">
+                                <form action="index.php" method="GET">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
                                         <input type="text" name="pid" class="form-control">
@@ -787,7 +787,7 @@
 
                                 if (empty($pid)) {
                                     echo "<script>";
-                                    echo "window.location.href='dbas2.php;";
+                                    echo "window.location.href='index.php;";
                                     echo "</script>";
                                 } else {
 
@@ -935,7 +935,7 @@
 
                             if (empty($spid)) {
                                 echo "<script>";
-                                echo "window.location.href='dbas2.php;";
+                                echo "window.location.href='index.php;";
                                 echo "</script>";
                             } else {
 
@@ -1021,7 +1021,7 @@
                                             </tbody>
                                         </table>
 
-                                        <form action="dbas2.php" method="GET">
+                                        <form action="index.php" method="GET">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
                                                 <input type="text" name="pid" class="form-control">
@@ -1746,7 +1746,7 @@
 <?php
                     }
                 } else { ?>
-<form action="dbas2.php" method="GET">
+<form action="index.php" method="GET">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
         <input type="text" name="pid" class="form-control">

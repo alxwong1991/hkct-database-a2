@@ -43,7 +43,7 @@
             <div class="temp-content">
                 <h1 class='w-100 mb-2 text-center text-danger'>Product Information</h1>
 
-                <!-- <form action="dbas2.php?" method="GET">
+                <!-- <form action="index.php?" method="GET">
                             <button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-success nav-color' type='submit' name='action' value='iwh'>Inventory Warehouse</button>
                             </form> -->
 
@@ -51,7 +51,7 @@
                 <?php
 
 
-                echo "<form action=\"dbas2.php?\" method=\"GET\">";
+                echo "<form action=\"index.php?\" method=\"GET\">";
 
                 // ALL
                 echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='all'>All Products</button>";
@@ -74,7 +74,7 @@
 
 
                 ?>
-                <form action="dbas2.php" method="GET">
+                <form action="index.php" method="GET">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label text-danger">Search Product ID</label>
                         <input type="text" name="spid" class="form-control">
@@ -505,7 +505,7 @@ GROUP BY `Product`.`P_code`;";
                                             </tbody>
                                         </table>
 
-                                        <form action="dbas2.php" method="GET">
+                                        <form action="index.php" method="GET">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
                                                 <input type="text" name="pid" class="form-control">
@@ -533,7 +533,7 @@ GROUP BY `Product`.`P_code`;";
                         case "request": ?>
                             <div>
 
-                                <form action="dbas2.php" method="GET">
+                                <form action="index.php" method="GET">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
                                         <input type="text" name="pid" class="form-control">
@@ -566,7 +566,7 @@ GROUP BY `Product`.`P_code`;";
 
                                 if (empty($pid)) {
                                     echo "<script>";
-                                    echo "window.location.href='dbas2.php;";
+                                    echo "window.location.href='index.php;";
                                     echo "</script>";
                                 } else {
 
@@ -715,7 +715,7 @@ GROUP BY `Product`.`P_code`;";
 
                             if (empty($spid)) {
                                 echo "<script>";
-                                echo "window.location.href='dbas2.php;";
+                                echo "window.location.href='index.php;";
                                 echo "</script>";
                             } else {
 
@@ -801,7 +801,7 @@ GROUP BY `Product`.`P_code`;";
                                             </tbody>
                                         </table>
 
-                                        <form action="dbas2.php" method="GET">
+                                        <form action="index.php" method="GET">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
                                                 <input type="text" name="pid" class="form-control">
@@ -829,7 +829,7 @@ GROUP BY `Product`.`P_code`;";
                 <?php
                     }
                 } else { ?>
-                <form action="dbas2.php" method="GET">
+                <form action="index.php" method="GET">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label text-danger">Request Product ID</label>
                         <input type="text" name="pid" class="form-control">
