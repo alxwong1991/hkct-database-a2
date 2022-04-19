@@ -103,33 +103,35 @@ CREATE TABLE `Product_list` (
   `P_code` int(11) DEFAULT NULL,
   `P_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `P_state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `RE_ID` int(10) NOT NULL
+  `RE_ID` int(10) NOT NULL,
+  `D_check` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'NULL' COMMENT 'Daily_check',
+  `DC_datetime` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Last check time'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `Product_list`
 --
 
-INSERT INTO `Product_list` (`P_ID`, `P_code`, `P_title`, `P_state`, `RE_ID`) VALUES
-(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3),
-(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3),
-(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3),
-(8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1),
-(10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2),
-(11, 3, 'VSLING plaque mini bag', 'inStock', 2),
-(12, 3, 'VSLING plaque mini bag', 'inStock', 3),
-(13, 4, 'VSLING plaque mini bag', 'inStock', 2),
-(14, 4, 'VSLING plaque mini bag', 'inStock', 1),
-(15, 4, 'VSLING plaque mini bag', 'inStock', 1),
-(16, 4, 'VSLING plaque mini bag', 'inStock', 2),
-(17, 4, 'VSLING plaque mini bag', 'inStock', 3),
-(18, 5, 'VSLING plaque mini bag', 'inStock', 2),
-(19, 5, 'VSLING plaque mini bag', 'inStock', 2);
+INSERT INTO `Product_list` (`P_ID`, `P_code`, `P_title`, `P_state`, `RE_ID`, `D_check`, `DC_datetime`) VALUES
+(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-19 22:20:41'),
+(10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(11, 3, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(12, 3, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(13, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 22:02:46'),
+(14, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-19 22:18:37'),
+(15, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-19 22:18:37'),
+(16, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 21:04:20'),
+(17, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-19 22:08:05'),
+(18, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 21:04:20'),
+(19, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 16:22:28');
 
 -- --------------------------------------------------------
 

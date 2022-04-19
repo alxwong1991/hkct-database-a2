@@ -8,12 +8,13 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="./index.php">Home</a>
+              <a class="nav-link active" aria-current="page" href="./index.php">dbas2</a>
               </li>
 
               <li class="nav-item">
-              <a class="nav-link" href="./dbas2.php">dbas2</a>
+              <a class="nav-link" href="./Daily_check.php">DailyCheck</a>
               </li>
+              
 
           </ul>          
           </div>
