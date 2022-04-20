@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3305
--- Generation Time: Apr 19, 2022 at 03:00 PM
+-- Generation Time: Apr 20, 2022 at 03:45 AM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -130,11 +130,10 @@ CREATE TABLE IF NOT EXISTS `product` (
   `P_code` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Product type',
   `P_ID` int NOT NULL AUTO_INCREMENT,
   `P_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `P_price` decimal(8,2) NOT NULL COMMENT 'Price per piece',
+  `P_price` decimal(8,2) NOT NULL COMMENT 'Unit Price',
   `P_color` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `P_size` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `M_ID` int NOT NULL COMMENT 'Manufacturer ID',
-  `M_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`P_ID`),
   KEY `M_ID` (`M_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -143,12 +142,12 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_color`, `P_size`, `M_ID`, `M_name`) VALUES
-('MTP', 1, 'Men‘s T-Shirt', '6400.00', 'BLACK', 'M', 1, 'Valentino'),
-('MTP', 2, 'Men‘s T-Shirt', '6400.00', 'BLACK', 'XXL', 1, 'Valentino'),
-('WBP', 3, 'Women‘s Beg', '19900.00', 'INK BLUE', 'One Size available', 1, 'Valentino'),
-('WBP', 4, 'Women‘s Beg', '19900.00', 'BEIGE', 'One Size available', 1, 'Valentino'),
-('WBP', 5, 'Women‘s Beg', '19900.00', 'WHITE', 'One Size available', 1, 'Valentino');
+INSERT INTO `product` (`P_code`, `P_ID`, `P_title`, `P_price`, `P_color`, `P_size`, `M_ID`) VALUES
+('MTP', 1, 'Men‘s T-Shirt', '6400.00', 'BLACK', 'M', 1),
+('MTP', 2, 'Men‘s T-Shirt', '6400.00', 'BLACK', 'XXL', 1),
+('WBP', 3, 'Women‘s Beg', '19900.00', 'INK BLUE', 'One Size available', 1),
+('WBP', 4, 'Women‘s Beg', '19900.00', 'BEIGE', 'One Size available', 1),
+('WBP', 5, 'Women‘s Beg', '19900.00', 'WHITE', 'One Size available', 1);
 
 -- --------------------------------------------------------
 
@@ -255,11 +254,18 @@ INSERT INTO `users` (`U_ID`, `U_surname`, `U_givenName`, `U_email`, `U_profilePi
 --
 
 --
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`PL_ID`) REFERENCES `product_list` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`U_ID`) REFERENCES `users` (`U_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`Pay_ID`) REFERENCES `payment` (`Pay_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`Pay_ID`) REFERENCES `payment` (`Pay_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`PL_ID`) REFERENCES `product_list` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `payment`
