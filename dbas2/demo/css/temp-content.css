@@ -1,0 +1,14 @@
+body {background-color: rgba(37, 105, 85, 0.4)}
+
+.temp-content{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.top-bg-content{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    height: 10rem;
+    background-color: rgba(236, 201, 0, 0.863);
+}
+

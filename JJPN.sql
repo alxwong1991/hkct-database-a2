@@ -2,14 +2,14 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3305
--- Generation Time: Apr 20, 2022 at 03:45 AM
--- Server version: 8.0.27
--- PHP Version: 7.4.26
+-- Host: localhost
+-- Generation Time: Apr 17, 2022 at 07:31 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+08:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -47,56 +47,79 @@ CREATE TABLE IF NOT EXISTS `cart` (
 
 INSERT INTO `cart` (`C_ID`, `C_productName`, `C_price`, `C_priceTotal`, `C_quantity`, `PL_ID`) VALUES
 (1, 'abc', 12, 12, 1, 1);
+-- Database: `JJPN`
+--
+CREATE DATABASE IF NOT EXISTS `JJPN` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `JJPN`;
+
+-- --------------------------------------------------------
+
+-- Drop user
+DROP USER IF EXISTS 'JJPN_administrator'@'localhost';
+
+-- Create Database User
+-- Database 	: 	JJPN
+-- Username	  : 	JJPN_administrator
+-- Password		:	  password
+CREATE USER 'JJPN_administrator'@'localhost' IDENTIFIED BY 'password';
+
+GRANT ALL PRIVILEGES ON *.* TO 'JJPN_administrator'@'localhost' REQUIRE 
+NONE WITH GRANT OPTION 
+    MAX_QUERIES_PER_HOUR 0 
+    MAX_CONNECTIONS_PER_HOUR 0 
+    MAX_UPDATES_PER_HOUR 0 
+    MAX_USER_CONNECTIONS 0;
+
+GRANT ALL PRIVILEGES ON `JJPN`.* TO 'JJPN_administrator'@'localhost';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manufacturer`
+-- Table structure for table `Manufacturer`
 --
 
-DROP TABLE IF EXISTS `manufacturer`;
-CREATE TABLE IF NOT EXISTS `manufacturer` (
-  `M_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Manufacturer type',
-  `M_ID` int NOT NULL,
-  `M_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `M_contact_number` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `M_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `M_BR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Business registration number',
-  PRIMARY KEY (`M_ID`)
+CREATE TABLE `Manufacturer` (
+  `M_ID` int(10) NOT NULL,
+  `M_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `M_contact_number` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `M_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `M_BR` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Business registration number'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `manufacturer`
+-- Dumping data for table `Manufacturer`
 --
 
-INSERT INTO `manufacturer` (`M_code`, `M_ID`, `M_name`, `M_contact_number`, `M_address`, `M_BR`) VALUES
-('HKM', 1, 'Valentino', '+852 28292717', '88 QUEENSWAY, ADMIRALITY\r\nL2, HARVEY NICHOLS PACIFIC PLACE\r\nADMIRALTY\r\nHONG KONG ISLAND\r\nHONG KONG SAR CHINA', 'VAT 05412951005');
+INSERT INTO `Manufacturer` (`M_ID`, `M_name`, `M_contact_number`, `M_address`, `M_BR`) VALUES
+(1, 'Valentino', '+852 28292717', '88 QUEENSWAY, ADMIRALITY\r\nL2, HARVEY NICHOLS PACIFIC PLACE\r\nADMIRALTY\r\nHONG KONG ISLAND\r\nHONG KONG SAR CHINA', 'VAT 05412951005');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Table structure for table `Product`
 --
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE IF NOT EXISTS `orders` (
-  `O_ID` int NOT NULL,
-  `Pay_ID` int NOT NULL,
-  `U_ID` int NOT NULL,
-  `PL_ID` int NOT NULL,
-  `Pay_hasPaid` int NOT NULL,
-  PRIMARY KEY (`O_ID`),
-  UNIQUE KEY `U_ID` (`U_ID`),
-  UNIQUE KEY `Pay_ID` (`Pay_ID`),
-  UNIQUE KEY `PL_ID` (`PL_ID`)
+CREATE TABLE `Product` (
+  `P_code` int(10) NOT NULL,
+  `P_key` int(10) DEFAULT NULL,
+  `P_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `P_price` decimal(8,2) NOT NULL COMMENT 'Price per piece',
+  `P_color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `P_size` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `M_ID` int(10) NOT NULL COMMENT 'Manufacturer ID',
+  `M_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `orders`
+-- Dumping data for table `Product`
 --
 
-INSERT INTO `orders` (`O_ID`, `Pay_ID`, `U_ID`, `PL_ID`, `Pay_hasPaid`) VALUES
-(1, 1, 1, 1, 1);
+INSERT INTO `Product` (`P_code`, `P_key`, `P_title`, `P_price`, `P_color`, `P_size`, `M_ID`, `M_name`) VALUES
+(1, 1, 'Tommy embroidered logo T-shirt', '6400.00', 'BLACK', 'M', 1, 'Valentino'),
+(2, 1, 'Tommy embroidered logo T-shirt', '6400.00', 'BLACK', 'XXL', 1, 'Valentino'),
+(3, 2, 'VSLING plaque mini bag', '19900.00', 'INK BLUE', 'One Size available', 1, 'Valentino'),
+(4, 2, 'VSLING plaque mini bag', '19900.00', 'BEIGE', 'One Size available', 1, 'Valentino'),
+(5, 2, 'VSLING plaque mini bag', '19900.00', 'WHITE', 'One Size available', 1, 'Valentino');
 
 -- --------------------------------------------------------
 
@@ -118,6 +141,43 @@ CREATE TABLE IF NOT EXISTS `payment` (
 
 INSERT INTO `payment` (`Pay_ID`, `C_ID`) VALUES
 (1, 1);
+-- Table structure for table `Product_list`
+--
+
+CREATE TABLE `Product_list` (
+  `P_ID` int(10) NOT NULL COMMENT 'Product number',
+  `P_code` int(11) DEFAULT NULL,
+  `P_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `P_state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `RE_ID` int(10) NOT NULL,
+  `D_check` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'NULL' COMMENT 'Daily_check',
+  `DC_datetime` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Last check time'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Product_list`
+--
+
+INSERT INTO `Product_list` (`P_ID`, `P_code`, `P_title`, `P_state`, `RE_ID`, `D_check`, `DC_datetime`) VALUES
+(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-19 22:20:41'),
+(10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(11, 3, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 22:20:41'),
+(12, 3, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-19 22:20:41'),
+(13, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 22:02:46'),
+(14, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-19 22:18:37'),
+(15, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-19 22:18:37'),
+(16, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 21:04:20'),
+(17, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-19 22:08:05'),
+(18, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 21:04:20'),
+(19, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 16:22:28');
 
 -- --------------------------------------------------------
 
@@ -291,6 +351,80 @@ ALTER TABLE `product_list`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`C_ID`) REFERENCES `cart` (`C_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+-- Table structure for table `Real_estate`
+--
+
+CREATE TABLE `Real_estate` (
+  `RE_ID` int(10) NOT NULL,
+  `RE_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `RE_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `RE_contact_number` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `RE_manager` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Real_estate`
+--
+
+INSERT INTO `Real_estate` (`RE_ID`, `RE_name`, `RE_address`, `RE_contact_number`, `RE_manager`) VALUES
+(1, 'Warehouse', 'TSMC R&D Center, Fab 12B\r\n168, Park Ave. II, Hsinchu Science Park, Hsinchu 300-75, Taiwan, R.O.C.', '886-3-5636688', 'Morris Chang'),
+(2, 'Branch Store 1', 'International Finance Centre \r\n8 Finance Street\r\nCentral', '+852 39721500', 'Tim Cook'),
+(3, 'Branch Store 2', 'Hysan Place\r\n500 Hennessy Road\r\nCauseway Bay', '+852 39793100', 'Winnie the Pooh');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Manufacturer`
+--
+ALTER TABLE `Manufacturer`
+  ADD PRIMARY KEY (`M_ID`);
+
+--
+-- Indexes for table `Product`
+--
+ALTER TABLE `Product`
+  ADD PRIMARY KEY (`P_code`),
+  ADD KEY `Product_ibfk_1` (`M_ID`);
+
+--
+-- Indexes for table `Product_list`
+--
+ALTER TABLE `Product_list`
+  ADD PRIMARY KEY (`P_ID`);
+
+--
+-- Indexes for table `Real_estate`
+--
+ALTER TABLE `Real_estate`
+  ADD PRIMARY KEY (`RE_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Product`
+--
+ALTER TABLE `Product`
+  MODIFY `P_code` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `Product_list`
+--
+ALTER TABLE `Product_list`
+  MODIFY `P_ID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Product number', AUTO_INCREMENT=20;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Product`
+--
+ALTER TABLE `Product`
+  ADD CONSTRAINT `Product_ibfk_1` FOREIGN KEY (`M_ID`) REFERENCES `Manufacturer` (`M_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
