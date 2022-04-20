@@ -17,36 +17,7 @@ SET time_zone = "+08:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `jjpn`
---
-CREATE DATABASE IF NOT EXISTS `jjpn` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `jjpn`;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `cart`
---
-
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE IF NOT EXISTS `cart` (
-  `C_ID` int NOT NULL,
-  `C_productName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `C_price` int NOT NULL,
-  `C_priceTotal` int NOT NULL,
-  `C_quantity` int NOT NULL,
-  `PL_ID` int NOT NULL,
-  PRIMARY KEY (`C_ID`),
-  UNIQUE KEY `PL_ID` (`PL_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`C_ID`, `C_productName`, `C_price`, `C_priceTotal`, `C_quantity`, `PL_ID`) VALUES
-(1, 'abc', 12, 12, 1, 1);
 -- Database: `JJPN`
 --
 CREATE DATABASE IF NOT EXISTS `JJPN` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -313,11 +284,62 @@ INSERT INTO `users` (`U_ID`, `U_surname`, `U_givenName`, `U_email`, `U_profilePi
 -- Constraints for dumped tables
 --
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `C_ID` int NOT NULL,
+  `C_productName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `C_price` int NOT NULL,
+  `C_priceTotal` int NOT NULL,
+  `C_quantity` int NOT NULL,
+  `PL_ID` int NOT NULL,
+  PRIMARY KEY (`C_ID`),
+  UNIQUE KEY `PL_ID` (`PL_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`C_ID`, `C_productName`, `C_price`, `C_priceTotal`, `C_quantity`, `PL_ID`) VALUES
+(1, 'abc', 12, 12, 1, 1);
 --
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`PL_ID`) REFERENCES `product_list` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `O_ID` int NOT NULL,
+  `Pay_ID` int NOT NULL,
+  `U_ID` int NOT NULL,
+  `PL_ID` int NOT NULL,
+  `Pay_hasPaid` int NOT NULL,
+  PRIMARY KEY (`O_ID`),
+  UNIQUE KEY `U_ID` (`U_ID`),
+  UNIQUE KEY `Pay_ID` (`Pay_ID`),
+  UNIQUE KEY `PL_ID` (`PL_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`O_ID`, `Pay_ID`, `U_ID`, `PL_ID`, `Pay_hasPaid`) VALUES
+(1, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
 
 --
 -- Constraints for table `orders`
