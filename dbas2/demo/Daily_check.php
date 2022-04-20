@@ -132,6 +132,7 @@
 
                 echo "<form action=\"Daily_check.php?\" method=\"GET\">";
 
+
                 // ALL
                 echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='all'>All Products</button>";
 
@@ -144,8 +145,7 @@
                 // BS2
                 echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-dark nav-color' type='submit' name='action' value='BS2'>Branch Store 2</button>";
 
-                // BS2
-                echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-warning nav-color' type='submit' name='action' value='reset'>Reset inspection records</button>";
+                
 
 
 
@@ -189,19 +189,6 @@
 
                                 $sql_result = $conn->query($sql);
 
-                                // Show to update name 
-                                $sql = "select * from 
-                                `Product`,
-                                `Product_list`
-                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $rand";
-                                $sql_result = $conn->query($sql);
-                                while ($row = mysqli_fetch_array($sql_result)) {
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . "Product ID#" . $row['P_ID'] .
-                                        "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . $row['P_color'] . " , " . $row['P_size'] .  " ,  $" . $row['P_price'] . "</h2>";
-                                    $pCode = $row['P_key'];
-                                }
-
                                 $cq = 0;
                                 $tq = 0;
 
@@ -241,6 +228,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
+                                                    <th class="text-danger">Product ID</th>
                                                     <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
@@ -262,6 +250,7 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
+                                                `Product_list`.`P_ID`,
                                                 `Product`.`P_code`,
                                                 `Product`.`P_title`,
                                                 `Product`.`P_color`,
@@ -292,11 +281,12 @@
 
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
+                                                        <th class="text-danger"><?php echo $row['P_ID']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
                                                         <td><?php echo "$" . $row['P_price']; ?></td>
-                                                        <td><?php echo $row['RE_name']; ?></td>
+                                                        <th><?php echo $row['RE_name']; ?></th>
                                                         <td class="text-danger"><?php echo $check; ?></td>
                                                         <td><?php echo $row['DC_datetime']; ?></td>
                                                     </tr>
@@ -340,19 +330,6 @@
 
 
 
-                                // Show to update name 
-                                $sql = "select * from 
-                                `Product`,
-                                `Product_list`
-                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $rand";
-                                $sql_result = $conn->query($sql);
-                                while ($row = mysqli_fetch_array($sql_result)) {
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . "Product ID#" . $row['P_ID'] .
-                                        "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . $row['P_color'] . " , " . $row['P_size'] .  " ,  $" . $row['P_price'] . "</h2>";
-                                    $pCode = $row['P_key'];
-                                }
-
                                 $cq = 0;
                                 $tq = 0;
 
@@ -390,6 +367,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
+                                                    <th class="text-danger">Product ID</th>
                                                     <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
@@ -411,6 +389,7 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
+                                                `Product_list`.`P_ID`,
                                                 `Product`.`P_code`,
                                                 `Product`.`P_title`,
                                                 `Product`.`P_color`,
@@ -441,11 +420,12 @@
 
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
+                                                        <th class="text-danger"><?php echo $row['P_ID']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
                                                         <td><?php echo "$" . $row['P_price']; ?></td>
-                                                        <td><?php echo $row['RE_name']; ?></td>
+                                                        <th><?php echo $row['RE_name']; ?></th>
                                                         <td class="text-danger"><?php echo $check; ?></td>
                                                         <td><?php echo $row['DC_datetime']; ?></td>
                                                     </tr>
@@ -487,18 +467,6 @@
 
                                 $sql_result = $conn->query($sql);
 
-                                // Show to update name 
-                                $sql = "select * from 
-                                `Product`,
-                                `Product_list`
-                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $rand";
-                                $sql_result = $conn->query($sql);
-                                while ($row = mysqli_fetch_array($sql_result)) {
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . "Product ID#" . $row['P_ID'] .
-                                        "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . $row['P_color'] . " , " . $row['P_size'] .  " ,  $" . $row['P_price'] . "</h2>";
-                                    $pCode = $row['P_key'];
-                                }
 
                                 $cq = 0;
                                 $tq = 0;
@@ -534,8 +502,9 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                                <tr>
+                                            <tr>
                                                     <th>No.</th>
+                                                    <th class="text-danger">Product ID</th>
                                                     <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
@@ -557,6 +526,7 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
+                                                `Product_list`.`P_ID`,
                                                 `Product`.`P_code`,
                                                 `Product`.`P_title`,
                                                 `Product`.`P_color`,
@@ -587,11 +557,12 @@
 
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
+                                                        <th class="text-danger"><?php echo $row['P_ID']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
                                                         <td><?php echo "$" . $row['P_price']; ?></td>
-                                                        <td><?php echo $row['RE_name']; ?></td>
+                                                        <th><?php echo $row['RE_name']; ?></th>
                                                         <td class="text-danger"><?php echo $check; ?></td>
                                                         <td><?php echo $row['DC_datetime']; ?></td>
                                                     </tr>
@@ -635,21 +606,6 @@
                                     $rand = $row['P_ID'];
                                 }
 
-
-
-                                // Show to update name 
-                                $sql = "select * from 
-                                                            `Product`,
-                                                            `Product_list`
-                                                            where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $rand";
-                                $sql_result = $conn->query($sql);
-                                while ($row = mysqli_fetch_array($sql_result)) {
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . "Product ID#" . $row['P_ID'] .
-                                        "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . $row['P_color'] . " , " . $row['P_size'] .  " ,  $" . $row['P_price'] . "</h2>";
-                                    $pCode = $row['P_key'];
-                                }
-
                                 // Confirm Execute sql
                                 $sql = "SELECT *, COUNT(`Product_list`.`P_ID`) AS allp FROM `Product_list` Where `Product_list`.`D_check` = 1  AND `Product_list`.`P_state` = 'inStock' AND `Product_list`.`RE_ID`=3";
                                 $sql_result = $conn->query($sql);
@@ -680,8 +636,9 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                                <tr>
+                                            <tr>
                                                     <th>No.</th>
+                                                    <th class="text-danger">Product ID</th>
                                                     <th>Title</th>
                                                     <th>Color </th>
                                                     <th>Size</th>
@@ -703,6 +660,7 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
+                                                `Product_list`.`P_ID`,
                                                 `Product`.`P_code`,
                                                 `Product`.`P_title`,
                                                 `Product`.`P_color`,
@@ -733,11 +691,12 @@
 
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
+                                                        <th class="text-danger"><?php echo $row['P_ID']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
                                                         <td><?php echo $row['P_color']; ?></td>
                                                         <td><?php echo $row['P_size']; ?></td>
                                                         <td><?php echo "$" . $row['P_price']; ?></td>
-                                                        <td><?php echo $row['RE_name']; ?></td>
+                                                        <th><?php echo $row['RE_name']; ?></th>
                                                         <td class="text-danger"><?php echo $check; ?></td>
                                                         <td><?php echo $row['DC_datetime']; ?></td>
                                                     </tr>
@@ -1766,6 +1725,14 @@
     <button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-warning nav-color' type='submit' name='action' value='request'>Request product</button>
 </form>
 <?PHP }
+
+
+echo "<form action=\"Daily_check.php?\" method=\"GET\">";
+
+// Reset
+echo "<button class='w-100 mb-2 mt-2 btn btn-lg rounded-4 btn-warning nav-color' type='submit' name='action' value='reset'>Reset inspection records</button>";
+
+echo "</form>"
 ?>
 
 

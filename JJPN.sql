@@ -17,7 +17,7 @@ SET time_zone = "+08:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
+
 -- Database: `JJPN`
 --
 CREATE DATABASE IF NOT EXISTS `JJPN` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -44,6 +44,7 @@ NONE WITH GRANT OPTION
 GRANT ALL PRIVILEGES ON `JJPN`.* TO 'JJPN_administrator'@'localhost';
 
 -- --------------------------------------------------------
+
 
 --
 -- Table structure for table `Manufacturer`
@@ -113,25 +114,25 @@ CREATE TABLE `Product_list` (
 --
 
 INSERT INTO `Product_list` (`P_ID`, `P_code`, `P_title`, `P_state`, `RE_ID`, `D_check`, `DC_datetime`) VALUES
-(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
-(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
-(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-19 22:20:41'),
-(8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-19 22:20:41'),
-(10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(11, 3, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 22:20:41'),
-(12, 3, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-19 22:20:41'),
-(13, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 22:02:46'),
-(14, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-19 22:18:37'),
-(15, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-19 22:18:37'),
-(16, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 21:04:20'),
-(17, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-19 22:08:05'),
-(18, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 21:04:20'),
-(19, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-19 16:22:28');
+(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-20 13:29:33'),
+(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-20 13:29:33'),
+(10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(11, 3, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(12, 3, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(13, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(14, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 13:29:33'),
+(15, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 13:29:33'),
+(16, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(17, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(18, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(19, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33');
 
 -- --------------------------------------------------------
 
