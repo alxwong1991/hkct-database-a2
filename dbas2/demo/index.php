@@ -895,7 +895,7 @@
                                 `Product`,
                                 `Product_list`
                             WHERE
-                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product`.`P_key` = 1";
+                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product`.`P_key` = $spk";
                                 $sql_result = $conn->query($sql);
                                 while ($row = mysqli_fetch_array($sql_result)) {
                                     $pCode = $row['P_key'];
