@@ -45,7 +45,6 @@ GRANT ALL PRIVILEGES ON `JJPN`.* TO 'JJPN_administrator'@'localhost';
 
 -- --------------------------------------------------------
 
-
 --
 -- Table structure for table `Manufacturer`
 --
@@ -114,21 +113,21 @@ CREATE TABLE `Product_list` (
 --
 
 INSERT INTO `Product_list` (`P_ID`, `P_code`, `P_title`, `P_state`, `RE_ID`, `D_check`, `DC_datetime`) VALUES
-(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-20 13:29:33'),
-(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
-(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 13:29:33'),
-(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
-(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
-(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 13:29:33'),
-(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 13:29:33'),
+(1, 1, 'Tommy embroidered logo T-shirt', 'inStock', 1, '1', '2022-04-20 14:32:42'),
+(2, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '1', '2022-04-20 14:32:43'),
+(3, 1, 'Tommy embroidered logo T-shirt', 'inStock', 3, '1', '2022-04-20 14:32:43'),
+(4, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 14:20:36'),
+(5, 1, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 14:20:36'),
+(6, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 14:20:36'),
+(7, 2, 'Tommy embroidered logo T-shirt', 'inStock', 3, '0', '2022-04-20 14:20:36'),
 (8, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
-(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-20 13:29:33'),
+(9, 2, 'Tommy embroidered logo T-shirt', 'inStock', 1, '0', '2022-04-20 14:32:33'),
 (10, 2, 'Tommy embroidered logo T-shirt', 'inStock', 2, '0', '2022-04-20 13:29:33'),
-(11, 3, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33'),
+(11, 3, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 14:32:33'),
 (12, 3, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-20 13:29:33'),
 (13, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-20 13:29:33'),
-(14, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 13:29:33'),
-(15, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 13:29:33'),
+(14, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 14:32:33'),
+(15, 4, 'VSLING plaque mini bag', 'inStock', 1, '0', '2022-04-20 14:32:33'),
 (16, 4, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33'),
 (17, 4, 'VSLING plaque mini bag', 'inStock', 3, '0', '2022-04-20 13:29:33'),
 (18, 5, 'VSLING plaque mini bag', 'inStock', 2, '0', '2022-04-20 13:29:33'),
