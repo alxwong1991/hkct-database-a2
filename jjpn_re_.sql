@@ -117,7 +117,8 @@ INSERT INTO `product_categories` (`P_ID`, `P_key`, `P_color`, `P_size`) VALUES
 (2, 1, 'BLACK', 'XXL'),
 (3, 2, 'INK BLUE', 'One Size available'),
 (4, 2, 'BEIGE', 'One Size available'),
-(5, 2, 'WHITE', 'One Size available');
+(5, 2, 'WHITE', 'One Size available'),
+(6, 2, 'grey', 'One Size available');
 
 -- --------------------------------------------------------
 
