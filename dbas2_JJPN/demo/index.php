@@ -83,7 +83,7 @@
                             <!-- ///////////////////////////////////////////////////////////////////////////////////   ALL  -->
                             <div>
                                 <?php
-                                require "searchKey.php";
+                                require "searchCode.php";
                                 ?>
                             </div>
 
@@ -97,8 +97,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th class="text-danger">Product KEY</th>
+                                                    <th class="text-danger">Product Code</th>
                                                     <th>Title</th>
+
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -122,24 +123,22 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
-                                                `Product`.`P_key`,
+                                                `Product`.`P_code`,
                                                 `Product`.`P_title`,
-                                                `Product`.`P_color`,
-                                                `Product`.`P_size`,
-                                                `Product`.`P_price`,
-                                                COUNT(*) AS countQ,
+                                                `Product_list`.`P_type_ID`,
+                                                `Product_type`.`P_type_color`,
+                                                `Product_type`.`P_type_size`,
+                                                `Product_type`.`P_type_price`,
                                                 `Product_list`.`P_state`,
-                                                `Real_estate`.`RE_ID`,
-                                                `Real_estate`.`RE_name`,
-                                                `Real_estate`.`RE_address`
+                                                COUNT(*) AS countQ
                                             FROM
                                                 `Product`,
                                                 `Product_list`,
-                                                `Real_estate`
+                                                `Product_type`
                                             WHERE
-                                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`P_state` = 'inStock'
                                             GROUP BY
-                                                `Product`.`P_code`;";
+                                                `Product_type`.`P_type_ID`;";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -147,11 +146,12 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <th class="text-danger"><?php echo $row['P_key']; ?></th>
+                                                        <th class="text-danger"><?php echo $row['P_code']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['countQ']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
                                                     </tr>
@@ -162,6 +162,10 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            </div>
+                            
                             <!--  -->
 
                         <?php break;
@@ -171,7 +175,7 @@
                             <div>
                                 <div>
                                     <?php
-                                    require "searchKey.php";
+                                    require "searchCode.php";
                                     ?>
                                 </div>
 
@@ -182,11 +186,12 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                                            <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th class="text-danger">Product KEY</th>
+                                                    <th class="text-danger">Product Code</th>
                                                     <th>Title</th>
+
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -210,36 +215,36 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
-                                                `Product`.`P_key`,
+                                                `Product`.`P_code`,
                                                 `Product`.`P_title`,
-                                                `Product`.`P_color`,
-                                                `Product`.`P_size`,
-                                                `Product`.`P_price`,
-                                                COUNT(*) AS countQ,
+                                                `Product_list`.`P_type_ID`,
+                                                `Product_type`.`P_type_color`,
+                                                `Product_type`.`P_type_size`,
+                                                `Product_type`.`P_type_price`,
                                                 `Product_list`.`P_state`,
-                                                `Real_estate`.`RE_ID`,
-                                                `Real_estate`.`RE_name`,
-                                                `Real_estate`.`RE_address`
+                                                COUNT(*) AS countQ
                                             FROM
                                                 `Product`,
                                                 `Product_list`,
-                                                `Real_estate`
+                                                `Product_type`,
+                                                `Location`
                                             WHERE
-                                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`AND `Real_estate`.`RE_ID`=1
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product_list`.`L_ID` = 1
                                             GROUP BY
-                                                `Product`.`P_code`;";
+                                                `Product_type`.`P_type_ID`;";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
                                                     $sl++;
                                                 ?>
-                                                   <tr>
+                                                    <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <th class="text-danger"><?php echo $row['P_key']; ?></th>
+                                                        <th class="text-danger"><?php echo $row['P_code']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['countQ']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
                                                     </tr>
@@ -260,7 +265,7 @@
 
                                 <div>
                                     <?php
-                                    require "searchKey.php";
+                                    require "searchCode.php";
                                     ?>
                                 </div>
 
@@ -270,10 +275,11 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                            <tr>
+                                                <tr>
                                                     <th>No.</th>
-                                                    <th class="text-danger">Product KEY</th>
+                                                    <th class="text-danger">Product Code</th>
                                                     <th>Title</th>
+
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -297,36 +303,36 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
-                                                `Product`.`P_key`,
+                                                `Product`.`P_code`,
                                                 `Product`.`P_title`,
-                                                `Product`.`P_color`,
-                                                `Product`.`P_size`,
-                                                `Product`.`P_price`,
-                                                COUNT(*) AS countQ,
+                                                `Product_list`.`P_type_ID`,
+                                                `Product_type`.`P_type_color`,
+                                                `Product_type`.`P_type_size`,
+                                                `Product_type`.`P_type_price`,
                                                 `Product_list`.`P_state`,
-                                                `Real_estate`.`RE_ID`,
-                                                `Real_estate`.`RE_name`,
-                                                `Real_estate`.`RE_address`
+                                                COUNT(*) AS countQ
                                             FROM
                                                 `Product`,
                                                 `Product_list`,
-                                                `Real_estate`
+                                                `Product_type`,
+                                                `Location`
                                             WHERE
-                                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`AND `Real_estate`.`RE_ID`=2
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product_list`.`L_ID` = 2
                                             GROUP BY
-                                                `Product`.`P_code`;";
+                                                `Product_type`.`P_type_ID`;";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
                                                     $sl++;
                                                 ?>
-                                                   <tr>
+                                                    <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <th class="text-danger"><?php echo $row['P_key']; ?></th>
+                                                        <th class="text-danger"><?php echo $row['P_code']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['countQ']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
                                                     </tr>
@@ -350,7 +356,7 @@
 
                                 <div>
                                     <?php
-                                    require "searchKey.php";
+                                    require "searchCode.php";
                                     ?>
                                 </div>
 
@@ -360,10 +366,11 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                            <tr>
+                                                <tr>
                                                     <th>No.</th>
-                                                    <th class="text-danger">Product KEY</th>
+                                                    <th class="text-danger">Product Code</th>
                                                     <th>Title</th>
+
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -387,36 +394,36 @@
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
-                                                `Product`.`P_key`,
+                                                `Product`.`P_code`,
                                                 `Product`.`P_title`,
-                                                `Product`.`P_color`,
-                                                `Product`.`P_size`,
-                                                `Product`.`P_price`,
-                                                COUNT(*) AS countQ,
+                                                `Product_list`.`P_type_ID`,
+                                                `Product_type`.`P_type_color`,
+                                                `Product_type`.`P_type_size`,
+                                                `Product_type`.`P_type_price`,
                                                 `Product_list`.`P_state`,
-                                                `Real_estate`.`RE_ID`,
-                                                `Real_estate`.`RE_name`,
-                                                `Real_estate`.`RE_address`
+                                                COUNT(*) AS countQ
                                             FROM
                                                 `Product`,
                                                 `Product_list`,
-                                                `Real_estate`
+                                                `Product_type`,
+                                                `Location`
                                             WHERE
-                                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`AND `Real_estate`.`RE_ID`=3
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product_list`.`L_ID` = 3
                                             GROUP BY
-                                                `Product`.`P_code`;";
+                                                `Product_type`.`P_type_ID`;";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
                                                     $sl++;
                                                 ?>
-                                                   <tr>
+                                                    <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <th class="text-danger"><?php echo $row['P_key']; ?></th>
+                                                        <th class="text-danger"><?php echo $row['P_code']; ?></th>
                                                         <td><?php echo $row['P_title']; ?></td>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['countQ']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
                                                     </tr>
@@ -453,14 +460,21 @@
                                 $pCode = 0;
 
                                 // SQL SELECT RECORD  
-                                $sql = "select * from 
+                                $sql = "SELECT
+                                *
+                            FROM
                                 `Product`,
-                                `Product_list`
-                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $rand";
+                                `Product_list`,
+                                `Product_type`
+                            WHERE
+                                `Product`.`P_code` = `Product_type`.`P_code` 
+                                AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` 
+                                AND `Product_list`.`P_state` = 'inStock' 
+                                AND `Product_list`.`P_ID`= $rand";
                                 $sql_result = $conn->query($sql);
                                 while ($row = mysqli_fetch_array($sql_result)) {
                                     echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "Product ID#" . $row['P_ID'] . "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_color'] . " , " . $row['P_size'] . "</h2>";
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_type_color'] . " , " . $row['P_type_size'] . "</h2>";
                                     $pCode = $row['P_code'];
                                 }
 
@@ -477,8 +491,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Title </th>
                                                     <th class="text-danger">Product ID</th>
+                                                    <th>Title </th>
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -494,22 +508,19 @@
                                                 <?php
 
 
-                                                print_r("P_ID" . $pCode);
+                                   
                                                 $sl = 0;
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
                                                 *
-                                             FROM
-                                                 `Product_list`,
-                                                 `Product`,
-                                                 `Real_estate`
-                                             WHERE
-                                                 (
-                                                     `Product`.`P_code` = `Product_list`.`P_code`
-                                                 ) AND(
-                                                     `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
-                                                 )	AND `Product`.`P_code` =$pCode";
+                                            FROM
+                                                `Product`,
+                                                `Product_list`,
+                                                `Product_type`,
+                                                `Location`
+                                            WHERE
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product`.`P_code` = $pCode ORDER by `Product_list`.`P_ID`";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -517,15 +528,15 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <td><?php echo $row['P_title']; ?></td>
                                                         <th class="text-danger"><?php echo $row['P_ID']; ?></th>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
-                                                        <tH class="text-danger"><?php echo $row['RE_ID']; ?></th>
-                                                        <td><?php echo $row['RE_name']; ?></td>
-                                                        <td><?php echo $row['RE_address']; ?></td>
+                                                        <tH class="text-danger"><?php echo $row['L_ID']; ?></th>
+                                                        <td><?php echo $row['L_name']; ?></td>
+                                                        <td><?php echo $row['L_address']; ?></td>
                                                         <?php
                                                         ?>
                                                     </tr>
@@ -563,10 +574,6 @@
                             <div>
 
 
-
-
-
-
                                 <?php
 
 
@@ -584,7 +591,7 @@
                                 } else {
 
                                     // SQL UPDATE RECORD  
-                                    $sql = "UPDATE`Product_list` SET `Product_list`.`RE_ID` = $d 
+                                    $sql = "UPDATE`Product_list` SET `Product_list`.`L_ID` = $d 
               WHERE `Product_list`.`P_ID` = $pid";
                                     $sql_result = $conn->query($sql);
 
@@ -592,22 +599,22 @@
                                     $nameD = '';
 
                                     // SQL SELECT RECORD  
-                                    $sql = "SELECT * FROM `Real_estate` WHERE  RE_ID = $s ";
+                                    $sql = "SELECT * FROM `Location` WHERE  L_ID = $s ";
                                     $sql_result = $conn->query($sql);
                                     while ($row = mysqli_fetch_array($sql_result)) {
                                         // echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['RE_name'] . "</h2>";
                                         // echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "to   " . "</h2>";
-                                        $nameS = $row['RE_name'];
+                                        $nameS = $row['L_name'];
                                     }
 
 
 
                                     // SQL SELECT RECORD  
-                                    $sql = "SELECT * FROM `Real_estate` WHERE  RE_ID = $d  ";
+                                    $sql = "SELECT * FROM `Location` WHERE L_ID = $d  ";
                                     $sql_result = $conn->query($sql);
                                     while ($row = mysqli_fetch_array($sql_result)) {
                                         // echo "<h2 class='w-100 mb-5  mt-2 text-center text-danger'>" . $row['RE_name'] . "</h2>";
-                                        $nameD = $row['RE_name'];
+                                        $nameD = $row['L_name'];
                                     }
 
                                     echo "<h2 class='w-100 mb-2 mt-2 text-center text-primary'>" . "REQUSEST SUCCEEDED" .  "</h2>";
@@ -619,14 +626,19 @@
                                     $pCode = 0;
 
                                     // SQL SELECT RECORD  
-                                    $sql = "select * from 
-              `Product`,
-              `Product_list`
-              where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $pid;";
+                                    $sql = "SELECT
+                                    *
+                                FROM
+                                    `Product`,
+                                    `Product_list`,
+                                    `Product_type`,
+                                    `Location`
+                                WHERE
+                                    `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product_list`.`P_ID` = $pid;";
                                     $sql_result = $conn->query($sql);
                                     while ($row = mysqli_fetch_array($sql_result)) {
                                         echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "Product ID#" . $row['P_ID'] . "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                        echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_color'] . " @ " . $row['P_size'] . "</h2>";
+                                        echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_type_color'] . " , " . $row['P_type_size'] . "</h2>";
 
                                         $pCode = $row['P_code'];
                                     }
@@ -645,8 +657,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Title </th>
                                                         <th class="text-danger">Product ID</th>
+                                                        <th>Title </th>
                                                         <th>Color </th>
                                                         <th>Size</th>
                                                         <th>Price per piece</th>
@@ -662,22 +674,18 @@
                                                     <?php
 
 
-                                                    print_r("P_ID" . $pCode);
                                                     $sl = 0;
 
                                                     // SQL SELECT RECORD  
                                                     $sql = "SELECT
-                              *
-                           FROM
-                               `Product_list`,
-                               `Product`,
-                               `Real_estate`
-                           WHERE
-                               (
-                                   `Product`.`P_code` = `Product_list`.`P_code`
-                               ) AND(
-                                   `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
-                               )	AND `Product`.`P_code` =$pCode";
+                                                *
+                                            FROM
+                                                `Product`,
+                                                `Product_list`,
+                                                `Product_type`,
+                                                `Location`
+                                            WHERE
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product`.`P_code` = $pCode ORDER by `Product_list`.`P_ID`";
                                                     // Execute sql
                                                     $sql_result = $conn->query($sql);
                                                     while ($row = mysqli_fetch_array($sql_result)) {
@@ -685,15 +693,15 @@
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $sl; ?></td>
-                                                            <td><?php echo $row['P_title']; ?></td>
                                                             <th class="text-danger"><?php echo $row['P_ID']; ?></th>
-                                                            <td><?php echo $row['P_color']; ?></td>
-                                                            <td><?php echo $row['P_size']; ?></td>
-                                                            <td><?php echo "$" . $row['P_price']; ?></td>
+                                                            <td><?php echo $row['P_title']; ?></td>
+                                                            <td><?php echo $row['P_type_color']; ?></td>
+                                                            <td><?php echo $row['P_type_size']; ?></td>
+                                                            <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                             <td><?php echo $row['P_state']; ?></td>
-                                                            <tH class="text-danger"><?php echo $row['RE_ID']; ?></th>
-                                                            <td><?php echo $row['RE_name']; ?></td>
-                                                            <td><?php echo $row['RE_address']; ?></td>
+                                                            <tH class="text-danger"><?php echo $row['L_ID']; ?></th>
+                                                            <td><?php echo $row['L_name']; ?></td>
+                                                            <td><?php echo $row['L_address']; ?></td>
                                                             <?php
                                                             ?>
                                                         </tr>
@@ -757,17 +765,23 @@
                             } else {
 
                                 // SQL SELECT RECORD  
-                                $sql = "select * from 
-                                `Product`,
-                                `Product_list`
-                                where `Product`.`P_code` = `Product_list`.`P_code` AND`Product_list`.`P_ID` =  $spid";
+                                $sql = "SELECT
+                                                                    *
+                                                                FROM
+                                                                    `Product`,
+                                                                    `Product_list`,
+                                                                    `Product_type`,
+                                                                    `Location`
+                                                                WHERE
+                                                                    `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product_list`.`P_ID` = $spid;";
                                 $sql_result = $conn->query($sql);
                                 while ($row = mysqli_fetch_array($sql_result)) {
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "Product ID#" . $row['P_ID'] .
-                                        "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
-                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_color'] . " , " . $row['P_size'] .  " ,  $" . $row['P_price'] . "</h2>";
-                                    $pCode = $row['P_key'];
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . "Product ID#" . $row['P_ID'] . "</h2><h2 class='w-100 mb-2 mt-2 text-center text-muted'>" . $row['P_title'] . "</h2>";
+                                    echo "<h2 class='w-100 mb-2 mt-2 text-center text-danger'>" . $row['P_type_color'] . " , " . $row['P_type_size'] . "</h2>";
+
+                                    $pCode = $row['P_code'];
                                 }
+
 
 
 
@@ -782,8 +796,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Title </th>
                                                     <th class="text-danger">Product ID</th>
+                                                    <th>Title </th>
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -798,21 +812,20 @@
                                             <tbody>
                                                 <?php
 
+
+                                                // print_r("P_ID" . $pCode);
                                                 $sl = 0;
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
                                                 *
-                                             FROM
-                                                 `Product_list`,
-                                                 `Product`,
-                                                 `Real_estate`
-                                             WHERE
-                                                 (
-                                                     `Product`.`P_code` = `Product_list`.`P_code`
-                                                 ) AND(
-                                                     `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
-                                                 )	AND `Product`.`P_key` =$pCode";
+                                            FROM
+                                                `Product`,
+                                                `Product_list`,
+                                                `Product_type`,
+                                                `Location`
+                                            WHERE
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product`.`P_code` = $pCode ORDER by `Product_list`.`P_ID`";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -820,15 +833,15 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <td><?php echo $row['P_title']; ?></td>
                                                         <th class="text-danger"><?php echo $row['P_ID']; ?></th>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
-                                                        <tH class="text-danger"><?php echo $row['RE_ID']; ?></th>
-                                                        <td><?php echo $row['RE_name']; ?></td>
-                                                        <td><?php echo $row['RE_address']; ?></td>
+                                                        <tH class="text-danger"><?php echo $row['L_ID']; ?></th>
+                                                        <td><?php echo $row['L_name']; ?></td>
+                                                        <td><?php echo $row['L_address']; ?></td>
                                                         <?php
                                                         ?>
                                                     </tr>
@@ -893,12 +906,14 @@
                                 *
                             FROM
                                 `Product`,
-                                `Product_list`
+                                `Product_list`,
+                                `Product_type`,
+                                `Location`
                             WHERE
-                                `Product`.`P_code` = `Product_list`.`P_code` AND `Product`.`P_key` = $spk";
+                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product`.`P_code` = $spk ORDER by `Product_list`.`P_ID`";
                                 $sql_result = $conn->query($sql);
                                 while ($row = mysqli_fetch_array($sql_result)) {
-                                    $pCode = $row['P_key'];
+                                    $pCode = $row['P_code'];
                                 }
 
 
@@ -914,9 +929,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th class="text-danger">Product KEY</th>
-                                                    <th>Title </th>
                                                     <th class="text-danger">Product ID</th>
+                                                    <th>Title </th>
                                                     <th>Color </th>
                                                     <th>Size</th>
                                                     <th>Price per piece</th>
@@ -931,21 +945,20 @@
                                             <tbody>
                                                 <?php
 
+
+                                                // print_r("P_ID" . $pCode);
                                                 $sl = 0;
 
                                                 // SQL SELECT RECORD  
                                                 $sql = "SELECT
                                                 *
-                                             FROM
-                                                 `Product_list`,
-                                                 `Product`,
-                                                 `Real_estate`
-                                             WHERE
-                                                 (
-                                                     `Product`.`P_code` = `Product_list`.`P_code`
-                                                 ) AND(
-                                                     `Product_list`.`RE_ID` = `Real_estate`.`RE_ID`
-                                                 )	AND `Product`.`P_key` =$pCode";
+                                            FROM
+                                                `Product`,
+                                                `Product_list`,
+                                                `Product_type`,
+                                                `Location`
+                                            WHERE
+                                                `Product`.`P_code` = `Product_type`.`P_code` AND `Product_type`.`P_type_ID` = `Product_list`.`P_type_ID` AND `Product_list`.`L_ID` = `Location`.`L_ID` AND `Product_list`.`P_state` = 'inStock' AND `Product`.`P_code` = $pCode ORDER by `Product_list`.`P_ID`";
                                                 // Execute sql
                                                 $sql_result = $conn->query($sql);
                                                 while ($row = mysqli_fetch_array($sql_result)) {
@@ -953,16 +966,15 @@
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sl; ?></td>
-                                                        <th class="text-danger"><?php echo $row['P_key']; ?></th>
-                                                        <td><?php echo $row['P_title']; ?></td>
                                                         <th class="text-danger"><?php echo $row['P_ID']; ?></th>
-                                                        <td><?php echo $row['P_color']; ?></td>
-                                                        <td><?php echo $row['P_size']; ?></td>
-                                                        <td><?php echo "$" . $row['P_price']; ?></td>
+                                                        <td><?php echo $row['P_title']; ?></td>
+                                                        <td><?php echo $row['P_type_color']; ?></td>
+                                                        <td><?php echo $row['P_type_size']; ?></td>
+                                                        <td><?php echo "$" . $row['P_type_price']; ?></td>
                                                         <td><?php echo $row['P_state']; ?></td>
-                                                        <tH class="text-danger"><?php echo $row['RE_ID']; ?></th>
-                                                        <td><?php echo $row['RE_name']; ?></td>
-                                                        <td><?php echo $row['RE_address']; ?></td>
+                                                        <tH class="text-danger"><?php echo $row['L_ID']; ?></th>
+                                                        <td><?php echo $row['L_name']; ?></td>
+                                                        <td><?php echo $row['L_address']; ?></td>
                                                         <?php
                                                         ?>
                                                     </tr>

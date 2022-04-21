@@ -2,7 +2,7 @@
   // MySQL, default port number is 3306
   $servername = "localhost";
   // Database name
-  $dbname = "JJPN";
+  $dbname = "dbas2_JJPN";
   // Database user account
   $dbuser = "JJPN_administrator";
   // Database password
